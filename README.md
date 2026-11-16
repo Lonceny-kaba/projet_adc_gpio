@@ -1,31 +1,42 @@
 # Projet ADC GPIO en C
 
-Ce projet simule une chaîne simple d'acquisition et de commande en langage C.
+Simulation en langage C d'une chaîne simple d'acquisition et de commande inspirée d'un système embarqué.
 
-Le programme :
-- simule la lecture d'un ADC 12 bits ;
-- convertit la valeur ADC en tension ;
-- compare la tension à un seuil ;
-- commande l'état d'une LED simulée via un registre GPIO ;
-- affiche la valeur ADC, la tension calculée et l'état de la LED ;
-- répète l'opération toutes les secondes.
+## Objectif
+
+Le programme simule :
+
+- la lecture d'un ADC 12 bits ;
+- la conversion de la valeur numérique en tension ;
+- la comparaison de cette tension à un seuil ;
+- la commande d'une LED simulée via un registre GPIO ;
+- l'affichage de la mesure et de l'état de la LED ;
+- une nouvelle mesure toutes les secondes.
 
 ## Fonctionnement
 
-La valeur ADC simulée est fixée à 2500.
+La lecture ADC est simulée avec une valeur fixe :
 
-La tension de référence vaut 3.3 V.
+```text
+ADC = 2500
+```
 
-La tension est calculée avec :
+La tension de référence vaut :
+
+```text
+Vref = 3.3 V
+```
+
+La conversion est réalisée avec :
 
 ```text
 Tension = (valeur_ADC / 4095) × Vref
 ```
 
-Avec une valeur ADC de 2500, on obtient environ :
+Pour une valeur ADC de 2500 :
 
 ```text
-2.01 V
+Tension ≈ 2.01 V
 ```
 
 Le seuil est fixé à :
@@ -34,20 +45,13 @@ Le seuil est fixé à :
 2.0 V
 ```
 
-Comme 2.01 V > 2.0 V, la LED simulée est allumée.
+Comme :
 
-## Notions utilisées
+```text
+2.01 V > 2.0 V
+```
 
-- langage C ;
-- fonctions ;
-- types `uint8_t` et `uint16_t` ;
-- ADC 12 bits ;
-- conversion numérique vers tension ;
-- GPIO ;
-- opérations bit à bit ;
-- conditions ;
-- boucle infinie `while(1)` ;
-- temporisation avec `Sleep()` sous Windows.
+la LED simulée est activée.
 
 ## Exemple de sortie
 
@@ -56,8 +60,34 @@ LED = ON
 ADC = 2500, Tension = 2.01 V
 ```
 
-## Remarque
+## Concepts utilisés
 
-Ce projet est actuellement une simulation exécutée sous Windows.
+- langage C ;
+- fonctions ;
+- `uint8_t` et `uint16_t` ;
+- ADC 12 bits ;
+- conversion numérique / tension ;
+- GPIO ;
+- opérations bit à bit ;
+- conditions `if / else` ;
+- boucle `while(1)` ;
+- temporisation avec `Sleep()` sous Windows.
 
-L'objectif est de reproduire la logique utilisée dans un système embarqué avant de la transférer sur un véritable microcontrôleur.
+## Organisation
+
+```text
+projet_adc_gpio/
+├── main.c
+├── README.md
+└── .gitignore
+```
+
+## Limites actuelles
+
+Le projet est actuellement une simulation exécutée sous Windows.
+
+La lecture ADC et le registre GPIO sont simulés en logiciel. Une évolution future du projet consistera à transférer cette logique sur un véritable microcontrôleur.
+
+## Auteur
+
+Projet réalisé dans le cadre de mon apprentissage du langage C appliqué aux systèmes embarqués.
